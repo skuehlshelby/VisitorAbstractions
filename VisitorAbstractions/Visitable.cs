@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace VisitorAbstractions
 {
-    public static class VisitableFactory<T1, T2>
+    public static class Visitable<T1, T2>
     {
         private sealed class T1Wrapper : IVisitableExtended<T1, T2>
         {

@@ -1,10 +1,13 @@
-﻿using VisitorAbstractions;
+﻿using Scott.Abstractions.VisitorPattern;
 
 namespace Example
 {
-    using MusicPlayerState = IVisitableExtended<Paused, Playing>;
-    using StateFactory = VisitableFactory<Paused, Playing>;
-    using StateTransition = IVisitorExtended<IVisitableExtended<Paused, Playing>, Paused, Playing>;
+    using PlayState = IVisitable<Paused, Playing>;
+    using PlayStateFactory = Visitable<Paused, Playing>;
+    using PlayStateTransition = IFunctionVisitor2x2<IVisitable<Paused, Playing>, Paused, Playing, Locked, Unlocked>;
+    using LockState = IVisitable<Locked, Unlocked>;
+    using LockStateFactory = Visitable<Locked, Unlocked>;
+    using LockStateTransition = IFunctionVisitor<IVisitable<Locked, Unlocked>, Locked, Unlocked>;
 
     internal class Program
     {
@@ -15,66 +18,194 @@ namespace Example
             musicPlayer.Play();
             musicPlayer.Play();
             musicPlayer.Pause();
+            musicPlayer.PlaySong("Baby One More Time");
+            musicPlayer.Lock();
+            musicPlayer.PlaySong("All The Small Things");
+            musicPlayer.Lock();
             musicPlayer.Play();
             musicPlayer.Pause();
+            musicPlayer.Unlock();
+            musicPlayer.Play();
+            musicPlayer.PlaySong("Blood Sugar Sex Magik");
+            musicPlayer.Unlock();
             musicPlayer.Pause();
             musicPlayer.Play();
         }
     }
 
-    class MusicPlayer
+    internal sealed class MusicPlayer
     {
-        MusicPlayerState state = StateFactory.CreateExtended(new Paused());
+        PlayState playState = PlayStateFactory.Create(new Paused(string.Empty));
+        LockState lockState = LockStateFactory.Create(new Unlocked());
 
         public void Play()
         {
-            Console.WriteLine($"Pressed {nameof(Play)}");
-            state = state.Accept(new PlayAction());
-        }
-
-        private sealed class PlayAction : StateTransition
-        {
-            MusicPlayerState StateTransition.Visit(Paused instance)
-            {
-                Console.WriteLine($"Transitioning to {nameof(Playing)} state...");
-                return StateFactory.CreateExtended(new Playing());
-            }
-
-            MusicPlayerState StateTransition.Visit(Playing instance)
-            {
-                Console.WriteLine("Already playing...");
-                return StateFactory.CreateExtended(instance);
-            }
+            playState = Visitors.Visit(new PlayAction(), playState, lockState);
         }
 
         public void Pause()
         {
-            Console.WriteLine($"Pressed {nameof(Pause)}");
-            state = state.Accept(new PauseAction());
+            playState = Visitors.Visit(new PauseAction(), playState, lockState);
         }
 
-        private sealed class PauseAction : StateTransition
+        public void Lock()
         {
-            MusicPlayerState StateTransition.Visit(Paused instance)
+            lockState = lockState.Accept(new LockAction());
+        }
+
+        public void Unlock()
+        {
+            lockState = lockState.Accept(new UnlockAction());
+        }
+
+        public void PlaySong(string songName)
+        {
+            Visitors.Visit(new PlaySongAction(songName), playState, lockState);
+        }
+
+        private sealed class PlayAction : PlayStateTransition
+        {
+            public PlayState Visit(Paused left, Locked right)
             {
-                Console.WriteLine("Already paused...");
-                return StateFactory.CreateExtended(instance);
+                Console.WriteLine($"Pressed '{nameof(Play)}' while '{nameof(Paused)}' and '{nameof(Locked)}'. Staying in '{nameof(Paused)}' state...");
+                return PlayStateFactory.Create(left);
             }
 
-            MusicPlayerState StateTransition.Visit(Playing instance)
+            public PlayState Visit(Paused left, Unlocked right)
             {
-                Console.WriteLine($"Transitioning to {nameof(Paused)} state...");
-                return StateFactory.CreateExtended(new Paused());
+                Console.WriteLine($"Pressed '{nameof(Play)}' while '{nameof(Paused)}' and '{nameof(Unlocked)}'. Transitioning to '{nameof(Playing)}' state...");
+                return PlayStateFactory.Create(new Playing(left.Song));
+            }
+
+            public PlayState Visit(Playing left, Locked right)
+            {
+                Console.WriteLine($"Pressed '{nameof(Play)}' while '{nameof(Playing)}' and '{nameof(Locked)}'. Staying in '{nameof(Playing)}' state...");
+                return PlayStateFactory.Create(left);
+            }
+
+            public PlayState Visit(Playing left, Unlocked right)
+            {
+                Console.WriteLine($"Pressed '{nameof(Play)}' while '{nameof(Playing)}' and '{nameof(Unlocked)}'. Staying in '{nameof(Playing)}' state...");
+                return PlayStateFactory.Create(left);
+            }
+        }
+
+        private sealed class PauseAction : PlayStateTransition
+        {
+            public PlayState Visit(Paused left, Locked right)
+            {
+                Console.WriteLine($"Pressed '{nameof(Pause)}' while '{nameof(Paused)}' and '{nameof(Locked)}'. Staying in '{nameof(Paused)}' state...");
+                return PlayStateFactory.Create(left);
+            }
+
+            public PlayState Visit(Paused left, Unlocked right)
+            {
+                Console.WriteLine($"Pressed '{nameof(Pause)}' while '{nameof(Paused)}' and '{nameof(Unlocked)}'. Staying in '{nameof(Paused)}' state...");
+                return PlayStateFactory.Create(left);
+            }
+
+            public PlayState Visit(Playing left, Locked right)
+            {
+                Console.WriteLine($"Pressed '{nameof(Pause)}' while '{nameof(Playing)}' and '{nameof(Locked)}'. Staying in '{nameof(Playing)}' state...");
+                return PlayStateFactory.Create(left);
+            }
+
+            public PlayState Visit(Playing left, Unlocked right)
+            {
+                Console.WriteLine($"Pressed '{nameof(Pause)}' while '{nameof(Playing)}' and '{nameof(Unlocked)}'. Transitioning to '{nameof(Paused)}' state...");
+                return PlayStateFactory.Create(new Paused(left.Song));
+            }
+        }
+
+        private sealed class LockAction : LockStateTransition
+        {
+            public LockState Visit(Locked instance)
+            {
+                Console.WriteLine($"Pressed '{nameof(Lock)}' while '{nameof(Locked)}'. Staying in '{nameof(Locked)}' state...");
+                return LockStateFactory.Create(instance);
+            }
+
+            public LockState Visit(Unlocked instance)
+            {
+                Console.WriteLine($"Pressed '{nameof(Lock)}' while '{nameof(Unlocked)}'. Transitioning to '{nameof(Locked)}' state...");
+                return LockStateFactory.Create(new Locked());
+            }
+        }
+
+        private sealed class UnlockAction : LockStateTransition
+        {
+            public LockState Visit(Locked instance)
+            {
+                Console.WriteLine($"Pressed '{nameof(Unlock)}' while '{nameof(Locked)}'. Transitioning to '{nameof(Unlocked)}' state...");
+                return LockStateFactory.Create(new Unlocked());
+            }
+
+            public LockState Visit(Unlocked instance)
+            {
+                Console.WriteLine($"Pressed '{nameof(Unlock)}' while '{nameof(Unlocked)}'. Staying in '{nameof(Unlocked)}' state...");
+                return LockStateFactory.Create(instance);
+            }
+        }
+
+        private sealed class PlaySongAction : IActionVisitor2x2<Paused, Playing, Locked, Unlocked>
+        {
+            private readonly string songName;
+
+            public PlaySongAction(string songName)
+            {
+                this.songName = songName;
+            }
+
+            public void Visit(Paused left, Locked right)
+            {
+                Console.WriteLine($"Tried to play song '{songName}', but player is locked. Continuing to play '{left.Song}'. ");
+            }
+
+            public void Visit(Paused left, Unlocked right)
+            {
+                Console.WriteLine($"Queueing up '{songName}'... ");
+                left.Song = songName;
+            }
+
+            public void Visit(Playing left, Locked right)
+            {
+                Console.WriteLine($"Tried to play song '{songName}', but player is locked. Continuing to play '{left.Song}'. ");
+            }
+
+            public void Visit(Playing left, Unlocked right)
+            {
+                Console.WriteLine($"Playing '{songName}' instead of '{left.Song}'... ");
+                left.Song = songName;
             }
         }
     }
 
     class Paused
     {
+        public Paused(string song)
+        {
+            Song = song;
+        }
 
+        public string Song { get; set; }
     }
 
     class Playing
+    {
+        public Playing(string song)
+        {
+            Song = song;
+        }
+
+        public string Song { get; set; }
+    }
+
+    class Locked
+    {
+
+    }
+
+    class Unlocked
     {
 
     }

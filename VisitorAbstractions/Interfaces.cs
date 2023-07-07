@@ -1,5 +1,23 @@
 ﻿namespace VisitorAbstractions
 {
+    public interface IVisitableII<out T1, out T2>
+    {
+        void Accept(IAction<T1, T2> visitor);
+        TReturn Accept<TReturn>(IFunc<TReturn, T1, T2> visitor);
+    }
+
+    public interface IFunc<out TReturn, in T1, in T2>
+    {
+        TReturn Visit(T1 instance);
+        TReturn Visit(T2 instance);
+    }
+
+    public interface IAction<in T1, in T2>
+    {
+        void Visit(T1 instance);
+        void Visit(T2 instance);
+    }
+
     public interface IVisitable<out T1, out T2>
     {
         void Accept(IVisitor<T1, T2> visitor);
