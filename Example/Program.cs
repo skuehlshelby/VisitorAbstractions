@@ -1,212 +1,129 @@
-﻿using Scott.Abstractions.VisitorPattern;
+﻿using Abstractions.Functional;
+using Abstractions.SumTypes.Variants;
+using Abstractions.Visitors.Extensions;
+using Abstractions.Visitors.Interfaces;
 
 namespace Example
 {
-    using PlayState = IVisitable<Paused, Playing>;
-    using PlayStateFactory = Visitable<Paused, Playing>;
-    using PlayStateTransition = IFunctionVisitor2x2<IVisitable<Paused, Playing>, Paused, Playing, Locked, Unlocked>;
-    using LockState = IVisitable<Locked, Unlocked>;
-    using LockStateFactory = Visitable<Locked, Unlocked>;
-    using LockStateTransition = IFunctionVisitor<IVisitable<Locked, Unlocked>, Locked, Unlocked>;
-
     internal class Program
     {
-        static void Main(string[] _)
+        public static void Main(string[] _)
         {
-            MusicPlayer musicPlayer= new MusicPlayer();
+            Connection connection = new();
 
-            musicPlayer.Play();
-            musicPlayer.Play();
-            musicPlayer.Pause();
-            musicPlayer.PlaySong("Baby One More Time");
-            musicPlayer.Lock();
-            musicPlayer.PlaySong("All The Small Things");
-            musicPlayer.Lock();
-            musicPlayer.Play();
-            musicPlayer.Pause();
-            musicPlayer.Unlock();
-            musicPlayer.Play();
-            musicPlayer.PlaySong("Blood Sugar Sex Magik");
-            musicPlayer.Unlock();
-            musicPlayer.Pause();
-            musicPlayer.Play();
+            Console.WriteLine($"{nameof(Connection)} {(connection.IsConnected() ? "is" : "is not")} connected.");
+
+            connection.BeginConnect();
+            connection.ActivateUnit(456);
+
+            Console.WriteLine($"{nameof(Connection)} {(connection.IsConnected() ? "is" : "is not")} connected.");
+        }
+
+        private sealed class Test : IVisitor<string, int, string>
+        {
+            public string Visit(string instance) => "Contains a string.";
+
+            public string Visit(int instance) => "Contains an int.";
         }
     }
 
-    internal sealed class MusicPlayer
+    public sealed class Connection
     {
-        PlayState playState = PlayStateFactory.Create(new Paused(string.Empty));
-        LockState lockState = LockStateFactory.Create(new Unlocked());
+        private interface IStateDependentComputation<T> : IVisitor<Uninitialized, Connecting, Connected, Disconnected, Error, T> { }
+        private interface IStateTransition : IStateDependentComputation<Variant<Uninitialized, Connecting, Connected, Disconnected, Error>> { }
 
-        public void Play()
+        private Variant<Uninitialized, Connecting, Connected, Disconnected, Error> state = new Uninitialized();
+
+        public bool IsConnected() => state.Accept(new GetIsConnected());
+        public void ActivateUnit(int unitId) => state.Accept(new ProcessOutgoingMessage(), new Variant<UnitActivateRequest, UnitDeactivateRequest>(new UnitActivateRequest(unitId)));
+        public void DectivateUnit(int unitId) => state.Accept(new ProcessOutgoingMessage(), new Variant<UnitActivateRequest, UnitDeactivateRequest>(new UnitDeactivateRequest(unitId)));
+        public void BeginConnect() => state = new Connecting();
+
+        private sealed class DoBeginConnect : IStateTransition
         {
-            playState = Visitors.Visit(new PlayAction(), playState, lockState);
+            public Variant<Uninitialized, Connecting, Connected, Disconnected, Error> Visit(Uninitialized instance) => new Connecting();
+            public Variant<Uninitialized, Connecting, Connected, Disconnected, Error> Visit(Connecting instance) => throw new NotImplementedException();
+            public Variant<Uninitialized, Connecting, Connected, Disconnected, Error> Visit(Connected instance) => throw new NotImplementedException();
+            public Variant<Uninitialized, Connecting, Connected, Disconnected, Error> Visit(Disconnected instance) => throw new NotImplementedException();
+            public Variant<Uninitialized, Connecting, Connected, Disconnected, Error> Visit(Error instance) => throw new NotImplementedException();
         }
 
-        public void Pause()
+        private sealed class GetIsConnected : IStateDependentComputation<bool>
         {
-            playState = Visitors.Visit(new PauseAction(), playState, lockState);
+            public bool Visit(Uninitialized _) => false;
+            public bool Visit(Connecting _) => false;
+            public bool Visit(Connected _) => true;
+            public bool Visit(Disconnected instance) => false;
+            public bool Visit(Error _) => false;
         }
 
-        public void Lock()
+        private sealed class ProcessOutgoingMessage : I5x2Visitor<Uninitialized, Connecting, Connected, Disconnected, Error, UnitActivateRequest, UnitDeactivateRequest, Nothing>
         {
-            lockState = lockState.Accept(new LockAction());
+            public Nothing Visit(Uninitialized uninitialized, UnitActivateRequest request) { uninitialized.MessageQueue.Enqueue(request);  return Nothing.Instance; }
+            public Nothing Visit(Uninitialized uninitialized, UnitDeactivateRequest request) { uninitialized.MessageQueue.Enqueue(request); return Nothing.Instance; }
+            public Nothing Visit(Connecting connecting, UnitActivateRequest request) { connecting.MessageQueue.Enqueue(request);  return Nothing.Instance; }
+            public Nothing Visit(Connecting connecting, UnitDeactivateRequest request) { connecting.MessageQueue.Enqueue(request); return Nothing.Instance; }
+            public Nothing Visit(Connected left, UnitActivateRequest right) => throw new NotImplementedException();
+            public Nothing Visit(Connected left, UnitDeactivateRequest right) => throw new NotImplementedException();
+            public Nothing Visit(Disconnected left, UnitActivateRequest right) => Nothing.Instance;
+            public Nothing Visit(Disconnected left, UnitDeactivateRequest right) => Nothing.Instance;
+            public Nothing Visit(Error left, UnitActivateRequest right) => Nothing.Instance;
+            public Nothing Visit(Error left, UnitDeactivateRequest right) => Nothing.Instance;
         }
 
-        public void Unlock()
+        private sealed class Uninitialized
         {
-            lockState = lockState.Accept(new UnlockAction());
+            public readonly Queue<Variant<UnitActivateRequest, UnitDeactivateRequest>> MessageQueue = new();
         }
 
-        public void PlaySong(string songName)
+        private sealed class Connecting
         {
-            Visitors.Visit(new PlaySongAction(songName), playState, lockState);
+            public readonly Queue<Variant<UnitActivateRequest, UnitDeactivateRequest>> MessageQueue = new();
         }
 
-        private sealed class PlayAction : PlayStateTransition
+        private sealed class Connected
         {
-            public PlayState Visit(Paused left, Locked right)
-            {
-                Console.WriteLine($"Pressed '{nameof(Play)}' while '{nameof(Paused)}' and '{nameof(Locked)}'. Staying in '{nameof(Paused)}' state...");
-                return PlayStateFactory.Create(left);
-            }
 
-            public PlayState Visit(Paused left, Unlocked right)
-            {
-                Console.WriteLine($"Pressed '{nameof(Play)}' while '{nameof(Paused)}' and '{nameof(Unlocked)}'. Transitioning to '{nameof(Playing)}' state...");
-                return PlayStateFactory.Create(new Playing(left.Song));
-            }
-
-            public PlayState Visit(Playing left, Locked right)
-            {
-                Console.WriteLine($"Pressed '{nameof(Play)}' while '{nameof(Playing)}' and '{nameof(Locked)}'. Staying in '{nameof(Playing)}' state...");
-                return PlayStateFactory.Create(left);
-            }
-
-            public PlayState Visit(Playing left, Unlocked right)
-            {
-                Console.WriteLine($"Pressed '{nameof(Play)}' while '{nameof(Playing)}' and '{nameof(Unlocked)}'. Staying in '{nameof(Playing)}' state...");
-                return PlayStateFactory.Create(left);
-            }
         }
 
-        private sealed class PauseAction : PlayStateTransition
+        private sealed class Disconnected
         {
-            public PlayState Visit(Paused left, Locked right)
-            {
-                Console.WriteLine($"Pressed '{nameof(Pause)}' while '{nameof(Paused)}' and '{nameof(Locked)}'. Staying in '{nameof(Paused)}' state...");
-                return PlayStateFactory.Create(left);
-            }
 
-            public PlayState Visit(Paused left, Unlocked right)
-            {
-                Console.WriteLine($"Pressed '{nameof(Pause)}' while '{nameof(Paused)}' and '{nameof(Unlocked)}'. Staying in '{nameof(Paused)}' state...");
-                return PlayStateFactory.Create(left);
-            }
-
-            public PlayState Visit(Playing left, Locked right)
-            {
-                Console.WriteLine($"Pressed '{nameof(Pause)}' while '{nameof(Playing)}' and '{nameof(Locked)}'. Staying in '{nameof(Playing)}' state...");
-                return PlayStateFactory.Create(left);
-            }
-
-            public PlayState Visit(Playing left, Unlocked right)
-            {
-                Console.WriteLine($"Pressed '{nameof(Pause)}' while '{nameof(Playing)}' and '{nameof(Unlocked)}'. Transitioning to '{nameof(Paused)}' state...");
-                return PlayStateFactory.Create(new Paused(left.Song));
-            }
         }
 
-        private sealed class LockAction : LockStateTransition
+        private sealed class Error
         {
-            public LockState Visit(Locked instance)
-            {
-                Console.WriteLine($"Pressed '{nameof(Lock)}' while '{nameof(Locked)}'. Staying in '{nameof(Locked)}' state...");
-                return LockStateFactory.Create(instance);
-            }
 
-            public LockState Visit(Unlocked instance)
-            {
-                Console.WriteLine($"Pressed '{nameof(Lock)}' while '{nameof(Unlocked)}'. Transitioning to '{nameof(Locked)}' state...");
-                return LockStateFactory.Create(new Locked());
-            }
         }
 
-        private sealed class UnlockAction : LockStateTransition
+        private sealed class UnitActivateRequest
         {
-            public LockState Visit(Locked instance)
-            {
-                Console.WriteLine($"Pressed '{nameof(Unlock)}' while '{nameof(Locked)}'. Transitioning to '{nameof(Unlocked)}' state...");
-                return LockStateFactory.Create(new Unlocked());
-            }
-
-            public LockState Visit(Unlocked instance)
-            {
-                Console.WriteLine($"Pressed '{nameof(Unlock)}' while '{nameof(Unlocked)}'. Staying in '{nameof(Unlocked)}' state...");
-                return LockStateFactory.Create(instance);
-            }
+            public UnitActivateRequest(int unitId) => UnitId = unitId;
+            public readonly int UnitId;
         }
 
-        private sealed class PlaySongAction : IActionVisitor2x2<Paused, Playing, Locked, Unlocked>
+        private sealed class UnitActivateConfirm
         {
-            private readonly string songName;
-
-            public PlaySongAction(string songName)
-            {
-                this.songName = songName;
-            }
-
-            public void Visit(Paused left, Locked right)
-            {
-                Console.WriteLine($"Tried to play song '{songName}', but player is locked. Continuing to play '{left.Song}'. ");
-            }
-
-            public void Visit(Paused left, Unlocked right)
-            {
-                Console.WriteLine($"Queueing up '{songName}'... ");
-                left.Song = songName;
-            }
-
-            public void Visit(Playing left, Locked right)
-            {
-                Console.WriteLine($"Tried to play song '{songName}', but player is locked. Continuing to play '{left.Song}'. ");
-            }
-
-            public void Visit(Playing left, Unlocked right)
-            {
-                Console.WriteLine($"Playing '{songName}' instead of '{left.Song}'... ");
-                left.Song = songName;
-            }
-        }
-    }
-
-    class Paused
-    {
-        public Paused(string song)
-        {
-            Song = song;
+            public UnitActivateConfirm(int unitId) => UnitId = unitId;
+            public readonly int UnitId;
         }
 
-        public string Song { get; set; }
-    }
-
-    class Playing
-    {
-        public Playing(string song)
+        private sealed class UnitActivateReject
         {
-            Song = song;
+            public UnitActivateReject(int unitId, string reason)
+            {
+                UnitId = unitId;
+                Reason = reason;
+            }
+
+            public readonly int UnitId;
+            public readonly string Reason;
         }
 
-        public string Song { get; set; }
-    }
-
-    class Locked
-    {
-
-    }
-
-    class Unlocked
-    {
-
+        private sealed class UnitDeactivateRequest
+        {
+            public UnitDeactivateRequest(int unitId) => UnitId = unitId;
+            public readonly int UnitId;
+        }
     }
 }

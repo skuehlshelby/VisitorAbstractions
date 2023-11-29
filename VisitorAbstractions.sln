@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33110.190
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VisitorAbstractions", "VisitorAbstractions\VisitorAbstractions.csproj", "{33D62951-1F22-44AC-920C-5C9BD0FD2EFB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VisitorAbstractions", "VisitorAbstractions\VisitorAbstractions.csproj", "{33D62951-1F22-44AC-920C-5C9BD0FD2EFB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeGeneration", "CodeGeneration\CodeGeneration.csproj", "{8554EAD2-3D46-4DDF-B287-E748157BD021}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeGeneration", "CodeGeneration\CodeGeneration.csproj", "{8554EAD2-3D46-4DDF-B287-E748157BD021}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example", "Example\Example.csproj", "{C78967D7-9064-4B8D-834A-65A8A488E25C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Example", "Example\Example.csproj", "{C78967D7-9064-4B8D-834A-65A8A488E25C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
