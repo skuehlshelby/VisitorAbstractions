@@ -3,7 +3,7 @@
     public sealed class Nothing
     {
         private Nothing() { }
-        public static readonly Nothing Instance = new();
+        public static readonly Nothing Instance = new Nothing();
     }
 }
 

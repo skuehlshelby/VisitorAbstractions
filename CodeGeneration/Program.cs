@@ -30,7 +30,7 @@ namespace CodeGeneration
                 using (writer.B("public sealed class Nothing"))
                 {
                     writer._("private Nothing() { }");
-                    writer._("public static readonly Nothing Instance = new();");
+                    writer._("public static readonly Nothing Instance = new Nothing();");
                 }
             }
 
@@ -103,7 +103,7 @@ namespace CodeGeneration
             writer = new CodeWriter.CodeWriter(CodeWriterSettings.CSharpDefault);
 
             writer._("using System;",
-                     $"using {VARIANT_NAMESPACE}",
+                     $"using {VARIANT_NAMESPACE};",
                      $"using {INTERFACES_NAMESPACE};",
                      string.Empty);
 

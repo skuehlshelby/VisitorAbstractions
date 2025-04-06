@@ -7,7 +7,7 @@ namespace Abstractions.SumTypes.Variants
 {
     #region T = 1
     
-    [DebuggerDisplay($"{{{nameof(GetDebuggerDisplay)}(),nq}}")]
+    [DebuggerDisplay("{{GetDebuggerDisplay(),nq}}")]
     public sealed class Variant<T1> : IVisitable<T1>
     {
         private string GetDebuggerDisplay() => $"{nameof(Variant<T1>)}<{string.Join(", ", GetType().GetGenericArguments().Select(arg => arg.Name))}> : {Accept(Visitor<T1>.Create(t => t?.GetType().Name))}";
@@ -21,14 +21,14 @@ namespace Abstractions.SumTypes.Variants
         private readonly IVisitable<T1> inner;
         public Variant(T1 instance) => inner = new T1Visitable(instance);
         public TReturn Accept<TReturn>(IVisitor<T1, TReturn> visitor) => inner.Accept(visitor);
-        public static implicit operator Variant<T1>(T1 instance) => new(instance);
+        public static implicit operator Variant<T1>(T1 instance) => new Variant<T1>(instance);
     }
 
     #endregion
     
     #region T = 2
     
-    [DebuggerDisplay($"{{{nameof(GetDebuggerDisplay)}(),nq}}")]
+    [DebuggerDisplay("{{GetDebuggerDisplay(),nq}}")]
     public sealed class Variant<T1, T2> : IVisitable<T1, T2>
     {
         private string GetDebuggerDisplay() => $"{nameof(Variant<T1, T2>)}<{string.Join(", ", GetType().GetGenericArguments().Select(arg => arg.Name))}> : {Accept(Visitor<T1, T2>.Create(t => t?.GetType().Name, t => t?.GetType().Name))}";
@@ -50,15 +50,15 @@ namespace Abstractions.SumTypes.Variants
         public Variant(T1 instance) => inner = new T1Visitable(instance);
         public Variant(T2 instance) => inner = new T2Visitable(instance);
         public TReturn Accept<TReturn>(IVisitor<T1, T2, TReturn> visitor) => inner.Accept(visitor);
-        public static implicit operator Variant<T1, T2>(T1 instance) => new(instance);
-        public static implicit operator Variant<T1, T2>(T2 instance) => new(instance);
+        public static implicit operator Variant<T1, T2>(T1 instance) => new Variant<T1, T2>(instance);
+        public static implicit operator Variant<T1, T2>(T2 instance) => new Variant<T1, T2>(instance);
     }
 
     #endregion
     
     #region T = 3
     
-    [DebuggerDisplay($"{{{nameof(GetDebuggerDisplay)}(),nq}}")]
+    [DebuggerDisplay("{{GetDebuggerDisplay(),nq}}")]
     public sealed class Variant<T1, T2, T3> : IVisitable<T1, T2, T3>
     {
         private string GetDebuggerDisplay() => $"{nameof(Variant<T1, T2, T3>)}<{string.Join(", ", GetType().GetGenericArguments().Select(arg => arg.Name))}> : {Accept(Visitor<T1, T2, T3>.Create(t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name))}";
@@ -88,16 +88,16 @@ namespace Abstractions.SumTypes.Variants
         public Variant(T2 instance) => inner = new T2Visitable(instance);
         public Variant(T3 instance) => inner = new T3Visitable(instance);
         public TReturn Accept<TReturn>(IVisitor<T1, T2, T3, TReturn> visitor) => inner.Accept(visitor);
-        public static implicit operator Variant<T1, T2, T3>(T1 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3>(T2 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3>(T3 instance) => new(instance);
+        public static implicit operator Variant<T1, T2, T3>(T1 instance) => new Variant<T1, T2, T3>(instance);
+        public static implicit operator Variant<T1, T2, T3>(T2 instance) => new Variant<T1, T2, T3>(instance);
+        public static implicit operator Variant<T1, T2, T3>(T3 instance) => new Variant<T1, T2, T3>(instance);
     }
 
     #endregion
     
     #region T = 4
     
-    [DebuggerDisplay($"{{{nameof(GetDebuggerDisplay)}(),nq}}")]
+    [DebuggerDisplay("{{GetDebuggerDisplay(),nq}}")]
     public sealed class Variant<T1, T2, T3, T4> : IVisitable<T1, T2, T3, T4>
     {
         private string GetDebuggerDisplay() => $"{nameof(Variant<T1, T2, T3, T4>)}<{string.Join(", ", GetType().GetGenericArguments().Select(arg => arg.Name))}> : {Accept(Visitor<T1, T2, T3, T4>.Create(t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name))}";
@@ -135,17 +135,17 @@ namespace Abstractions.SumTypes.Variants
         public Variant(T3 instance) => inner = new T3Visitable(instance);
         public Variant(T4 instance) => inner = new T4Visitable(instance);
         public TReturn Accept<TReturn>(IVisitor<T1, T2, T3, T4, TReturn> visitor) => inner.Accept(visitor);
-        public static implicit operator Variant<T1, T2, T3, T4>(T1 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4>(T2 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4>(T3 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4>(T4 instance) => new(instance);
+        public static implicit operator Variant<T1, T2, T3, T4>(T1 instance) => new Variant<T1, T2, T3, T4>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4>(T2 instance) => new Variant<T1, T2, T3, T4>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4>(T3 instance) => new Variant<T1, T2, T3, T4>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4>(T4 instance) => new Variant<T1, T2, T3, T4>(instance);
     }
 
     #endregion
     
     #region T = 5
     
-    [DebuggerDisplay($"{{{nameof(GetDebuggerDisplay)}(),nq}}")]
+    [DebuggerDisplay("{{GetDebuggerDisplay(),nq}}")]
     public sealed class Variant<T1, T2, T3, T4, T5> : IVisitable<T1, T2, T3, T4, T5>
     {
         private string GetDebuggerDisplay() => $"{nameof(Variant<T1, T2, T3, T4, T5>)}<{string.Join(", ", GetType().GetGenericArguments().Select(arg => arg.Name))}> : {Accept(Visitor<T1, T2, T3, T4, T5>.Create(t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name))}";
@@ -191,18 +191,18 @@ namespace Abstractions.SumTypes.Variants
         public Variant(T4 instance) => inner = new T4Visitable(instance);
         public Variant(T5 instance) => inner = new T5Visitable(instance);
         public TReturn Accept<TReturn>(IVisitor<T1, T2, T3, T4, T5, TReturn> visitor) => inner.Accept(visitor);
-        public static implicit operator Variant<T1, T2, T3, T4, T5>(T1 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5>(T2 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5>(T3 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5>(T4 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5>(T5 instance) => new(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5>(T1 instance) => new Variant<T1, T2, T3, T4, T5>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5>(T2 instance) => new Variant<T1, T2, T3, T4, T5>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5>(T3 instance) => new Variant<T1, T2, T3, T4, T5>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5>(T4 instance) => new Variant<T1, T2, T3, T4, T5>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5>(T5 instance) => new Variant<T1, T2, T3, T4, T5>(instance);
     }
 
     #endregion
     
     #region T = 6
     
-    [DebuggerDisplay($"{{{nameof(GetDebuggerDisplay)}(),nq}}")]
+    [DebuggerDisplay("{{GetDebuggerDisplay(),nq}}")]
     public sealed class Variant<T1, T2, T3, T4, T5, T6> : IVisitable<T1, T2, T3, T4, T5, T6>
     {
         private string GetDebuggerDisplay() => $"{nameof(Variant<T1, T2, T3, T4, T5, T6>)}<{string.Join(", ", GetType().GetGenericArguments().Select(arg => arg.Name))}> : {Accept(Visitor<T1, T2, T3, T4, T5, T6>.Create(t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name))}";
@@ -256,19 +256,19 @@ namespace Abstractions.SumTypes.Variants
         public Variant(T5 instance) => inner = new T5Visitable(instance);
         public Variant(T6 instance) => inner = new T6Visitable(instance);
         public TReturn Accept<TReturn>(IVisitor<T1, T2, T3, T4, T5, T6, TReturn> visitor) => inner.Accept(visitor);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6>(T1 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6>(T2 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6>(T3 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6>(T4 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6>(T5 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6>(T6 instance) => new(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6>(T1 instance) => new Variant<T1, T2, T3, T4, T5, T6>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6>(T2 instance) => new Variant<T1, T2, T3, T4, T5, T6>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6>(T3 instance) => new Variant<T1, T2, T3, T4, T5, T6>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6>(T4 instance) => new Variant<T1, T2, T3, T4, T5, T6>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6>(T5 instance) => new Variant<T1, T2, T3, T4, T5, T6>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6>(T6 instance) => new Variant<T1, T2, T3, T4, T5, T6>(instance);
     }
 
     #endregion
     
     #region T = 7
     
-    [DebuggerDisplay($"{{{nameof(GetDebuggerDisplay)}(),nq}}")]
+    [DebuggerDisplay("{{GetDebuggerDisplay(),nq}}")]
     public sealed class Variant<T1, T2, T3, T4, T5, T6, T7> : IVisitable<T1, T2, T3, T4, T5, T6, T7>
     {
         private string GetDebuggerDisplay() => $"{nameof(Variant<T1, T2, T3, T4, T5, T6, T7>)}<{string.Join(", ", GetType().GetGenericArguments().Select(arg => arg.Name))}> : {Accept(Visitor<T1, T2, T3, T4, T5, T6, T7>.Create(t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name))}";
@@ -330,20 +330,20 @@ namespace Abstractions.SumTypes.Variants
         public Variant(T6 instance) => inner = new T6Visitable(instance);
         public Variant(T7 instance) => inner = new T7Visitable(instance);
         public TReturn Accept<TReturn>(IVisitor<T1, T2, T3, T4, T5, T6, T7, TReturn> visitor) => inner.Accept(visitor);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7>(T1 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7>(T2 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7>(T3 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7>(T4 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7>(T5 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7>(T6 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7>(T7 instance) => new(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7>(T1 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7>(T2 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7>(T3 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7>(T4 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7>(T5 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7>(T6 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7>(T7 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7>(instance);
     }
 
     #endregion
     
     #region T = 8
     
-    [DebuggerDisplay($"{{{nameof(GetDebuggerDisplay)}(),nq}}")]
+    [DebuggerDisplay("{{GetDebuggerDisplay(),nq}}")]
     public sealed class Variant<T1, T2, T3, T4, T5, T6, T7, T8> : IVisitable<T1, T2, T3, T4, T5, T6, T7, T8>
     {
         private string GetDebuggerDisplay() => $"{nameof(Variant<T1, T2, T3, T4, T5, T6, T7, T8>)}<{string.Join(", ", GetType().GetGenericArguments().Select(arg => arg.Name))}> : {Accept(Visitor<T1, T2, T3, T4, T5, T6, T7, T8>.Create(t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name))}";
@@ -413,21 +413,21 @@ namespace Abstractions.SumTypes.Variants
         public Variant(T7 instance) => inner = new T7Visitable(instance);
         public Variant(T8 instance) => inner = new T8Visitable(instance);
         public TReturn Accept<TReturn>(IVisitor<T1, T2, T3, T4, T5, T6, T7, T8, TReturn> visitor) => inner.Accept(visitor);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8>(T1 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8>(T2 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8>(T3 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8>(T4 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8>(T5 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8>(T6 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8>(T7 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8>(T8 instance) => new(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8>(T1 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8>(T2 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8>(T3 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8>(T4 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8>(T5 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8>(T6 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8>(T7 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8>(T8 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8>(instance);
     }
 
     #endregion
     
     #region T = 9
     
-    [DebuggerDisplay($"{{{nameof(GetDebuggerDisplay)}(),nq}}")]
+    [DebuggerDisplay("{{GetDebuggerDisplay(),nq}}")]
     public sealed class Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9> : IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9>
     {
         private string GetDebuggerDisplay() => $"{nameof(Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9>)}<{string.Join(", ", GetType().GetGenericArguments().Select(arg => arg.Name))}> : {Accept(Visitor<T1, T2, T3, T4, T5, T6, T7, T8, T9>.Create(t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name))}";
@@ -505,22 +505,22 @@ namespace Abstractions.SumTypes.Variants
         public Variant(T8 instance) => inner = new T8Visitable(instance);
         public Variant(T9 instance) => inner = new T9Visitable(instance);
         public TReturn Accept<TReturn>(IVisitor<T1, T2, T3, T4, T5, T6, T7, T8, T9, TReturn> visitor) => inner.Accept(visitor);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9>(T1 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9>(T2 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9>(T3 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9>(T4 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9>(T5 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9>(T6 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9>(T7 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9>(T8 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9>(T9 instance) => new(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9>(T1 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9>(T2 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9>(T3 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9>(T4 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9>(T5 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9>(T6 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9>(T7 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9>(T8 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9>(T9 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9>(instance);
     }
 
     #endregion
     
     #region T = 10
     
-    [DebuggerDisplay($"{{{nameof(GetDebuggerDisplay)}(),nq}}")]
+    [DebuggerDisplay("{{GetDebuggerDisplay(),nq}}")]
     public sealed class Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> : IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>
     {
         private string GetDebuggerDisplay() => $"{nameof(Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>)}<{string.Join(", ", GetType().GetGenericArguments().Select(arg => arg.Name))}> : {Accept(Visitor<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>.Create(t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name))}";
@@ -606,23 +606,23 @@ namespace Abstractions.SumTypes.Variants
         public Variant(T9 instance) => inner = new T9Visitable(instance);
         public Variant(T10 instance) => inner = new T10Visitable(instance);
         public TReturn Accept<TReturn>(IVisitor<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TReturn> visitor) => inner.Accept(visitor);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(T1 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(T2 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(T3 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(T4 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(T5 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(T6 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(T7 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(T8 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(T9 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(T10 instance) => new(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(T1 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(T2 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(T3 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(T4 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(T5 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(T6 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(T7 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(T8 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(T9 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(T10 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(instance);
     }
 
     #endregion
     
     #region T = 11
     
-    [DebuggerDisplay($"{{{nameof(GetDebuggerDisplay)}(),nq}}")]
+    [DebuggerDisplay("{{GetDebuggerDisplay(),nq}}")]
     public sealed class Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11> : IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>
     {
         private string GetDebuggerDisplay() => $"{nameof(Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>)}<{string.Join(", ", GetType().GetGenericArguments().Select(arg => arg.Name))}> : {Accept(Visitor<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>.Create(t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name))}";
@@ -716,24 +716,24 @@ namespace Abstractions.SumTypes.Variants
         public Variant(T10 instance) => inner = new T10Visitable(instance);
         public Variant(T11 instance) => inner = new T11Visitable(instance);
         public TReturn Accept<TReturn>(IVisitor<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TReturn> visitor) => inner.Accept(visitor);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(T1 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(T2 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(T3 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(T4 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(T5 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(T6 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(T7 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(T8 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(T9 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(T10 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(T11 instance) => new(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(T1 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(T2 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(T3 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(T4 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(T5 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(T6 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(T7 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(T8 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(T9 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(T10 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(T11 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(instance);
     }
 
     #endregion
     
     #region T = 12
     
-    [DebuggerDisplay($"{{{nameof(GetDebuggerDisplay)}(),nq}}")]
+    [DebuggerDisplay("{{GetDebuggerDisplay(),nq}}")]
     public sealed class Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> : IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>
     {
         private string GetDebuggerDisplay() => $"{nameof(Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>)}<{string.Join(", ", GetType().GetGenericArguments().Select(arg => arg.Name))}> : {Accept(Visitor<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>.Create(t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name))}";
@@ -835,25 +835,25 @@ namespace Abstractions.SumTypes.Variants
         public Variant(T11 instance) => inner = new T11Visitable(instance);
         public Variant(T12 instance) => inner = new T12Visitable(instance);
         public TReturn Accept<TReturn>(IVisitor<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, TReturn> visitor) => inner.Accept(visitor);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(T1 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(T2 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(T3 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(T4 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(T5 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(T6 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(T7 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(T8 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(T9 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(T10 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(T11 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(T12 instance) => new(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(T1 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(T2 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(T3 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(T4 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(T5 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(T6 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(T7 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(T8 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(T9 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(T10 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(T11 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(T12 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(instance);
     }
 
     #endregion
     
     #region T = 13
     
-    [DebuggerDisplay($"{{{nameof(GetDebuggerDisplay)}(),nq}}")]
+    [DebuggerDisplay("{{GetDebuggerDisplay(),nq}}")]
     public sealed class Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> : IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>
     {
         private string GetDebuggerDisplay() => $"{nameof(Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>)}<{string.Join(", ", GetType().GetGenericArguments().Select(arg => arg.Name))}> : {Accept(Visitor<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>.Create(t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name))}";
@@ -963,26 +963,26 @@ namespace Abstractions.SumTypes.Variants
         public Variant(T12 instance) => inner = new T12Visitable(instance);
         public Variant(T13 instance) => inner = new T13Visitable(instance);
         public TReturn Accept<TReturn>(IVisitor<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TReturn> visitor) => inner.Accept(visitor);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(T1 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(T2 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(T3 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(T4 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(T5 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(T6 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(T7 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(T8 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(T9 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(T10 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(T11 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(T12 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(T13 instance) => new(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(T1 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(T2 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(T3 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(T4 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(T5 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(T6 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(T7 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(T8 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(T9 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(T10 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(T11 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(T12 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(T13 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(instance);
     }
 
     #endregion
     
     #region T = 14
     
-    [DebuggerDisplay($"{{{nameof(GetDebuggerDisplay)}(),nq}}")]
+    [DebuggerDisplay("{{GetDebuggerDisplay(),nq}}")]
     public sealed class Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> : IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>
     {
         private string GetDebuggerDisplay() => $"{nameof(Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>)}<{string.Join(", ", GetType().GetGenericArguments().Select(arg => arg.Name))}> : {Accept(Visitor<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>.Create(t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name))}";
@@ -1100,27 +1100,27 @@ namespace Abstractions.SumTypes.Variants
         public Variant(T13 instance) => inner = new T13Visitable(instance);
         public Variant(T14 instance) => inner = new T14Visitable(instance);
         public TReturn Accept<TReturn>(IVisitor<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, TReturn> visitor) => inner.Accept(visitor);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(T1 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(T2 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(T3 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(T4 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(T5 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(T6 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(T7 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(T8 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(T9 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(T10 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(T11 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(T12 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(T13 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(T14 instance) => new(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(T1 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(T2 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(T3 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(T4 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(T5 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(T6 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(T7 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(T8 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(T9 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(T10 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(T11 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(T12 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(T13 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(T14 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(instance);
     }
 
     #endregion
     
     #region T = 15
     
-    [DebuggerDisplay($"{{{nameof(GetDebuggerDisplay)}(),nq}}")]
+    [DebuggerDisplay("{{GetDebuggerDisplay(),nq}}")]
     public sealed class Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> : IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>
     {
         private string GetDebuggerDisplay() => $"{nameof(Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>)}<{string.Join(", ", GetType().GetGenericArguments().Select(arg => arg.Name))}> : {Accept(Visitor<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>.Create(t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name))}";
@@ -1246,28 +1246,28 @@ namespace Abstractions.SumTypes.Variants
         public Variant(T14 instance) => inner = new T14Visitable(instance);
         public Variant(T15 instance) => inner = new T15Visitable(instance);
         public TReturn Accept<TReturn>(IVisitor<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, TReturn> visitor) => inner.Accept(visitor);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(T1 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(T2 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(T3 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(T4 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(T5 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(T6 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(T7 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(T8 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(T9 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(T10 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(T11 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(T12 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(T13 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(T14 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(T15 instance) => new(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(T1 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(T2 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(T3 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(T4 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(T5 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(T6 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(T7 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(T8 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(T9 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(T10 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(T11 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(T12 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(T13 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(T14 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(T15 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(instance);
     }
 
     #endregion
     
     #region T = 16
     
-    [DebuggerDisplay($"{{{nameof(GetDebuggerDisplay)}(),nq}}")]
+    [DebuggerDisplay("{{GetDebuggerDisplay(),nq}}")]
     public sealed class Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> : IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>
     {
         private string GetDebuggerDisplay() => $"{nameof(Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>)}<{string.Join(", ", GetType().GetGenericArguments().Select(arg => arg.Name))}> : {Accept(Visitor<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>.Create(t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name))}";
@@ -1401,22 +1401,22 @@ namespace Abstractions.SumTypes.Variants
         public Variant(T15 instance) => inner = new T15Visitable(instance);
         public Variant(T16 instance) => inner = new T16Visitable(instance);
         public TReturn Accept<TReturn>(IVisitor<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, TReturn> visitor) => inner.Accept(visitor);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(T1 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(T2 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(T3 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(T4 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(T5 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(T6 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(T7 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(T8 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(T9 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(T10 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(T11 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(T12 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(T13 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(T14 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(T15 instance) => new(instance);
-        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(T16 instance) => new(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(T1 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(T2 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(T3 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(T4 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(T5 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(T6 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(T7 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(T8 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(T9 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(T10 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(T11 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(T12 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(T13 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(T14 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(T15 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(instance);
+        public static implicit operator Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(T16 instance) => new Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(instance);
     }
 
     #endregion

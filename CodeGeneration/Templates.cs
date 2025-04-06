@@ -72,7 +72,7 @@ namespace CodeGeneration
 
         public static void Variant(CodeWriter.CodeWriter codeWriter, int typeParameterCount)
         {
-            codeWriter._(@"[DebuggerDisplay($""{{{nameof(GetDebuggerDisplay)}(),nq}}"")]");
+            codeWriter._(@"[DebuggerDisplay(""{{GetDebuggerDisplay(),nq}}"")]");
 
             using (codeWriter.B($"public sealed class Variant<{Csv(TypeParameters[typeParameterCount])}> : IVisitable<{Csv(TypeParameters[typeParameterCount])}>"))
             {
@@ -99,7 +99,7 @@ namespace CodeGeneration
 
                 foreach (var typeParameter in TypeParameters[typeParameterCount])
                 {
-                    codeWriter._($"public static implicit operator Variant<{Csv(TypeParameters[typeParameterCount])}>({typeParameter} instance) => new(instance);");
+                    codeWriter._($"public static implicit operator Variant<{Csv(TypeParameters[typeParameterCount])}>({typeParameter} instance) => new Variant<{Csv(TypeParameters[typeParameterCount])}>(instance);");
                 }
             }
         }
