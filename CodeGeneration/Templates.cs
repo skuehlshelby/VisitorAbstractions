@@ -39,7 +39,7 @@ namespace CodeGeneration
 
         public static void IVisitableFactory(CodeWriter.CodeWriter codeWriter, int typeParameterCount)
         {
-            var typeParameterCsv = Csv(InTypeParameters[typeParameterCount]);
+            var typeParameterCsv = Csv(TypeParameters[typeParameterCount]);
 
             using (codeWriter.B($"public interface IVisitableFactory<{typeParameterCsv}>"))
             {
@@ -72,8 +72,12 @@ namespace CodeGeneration
 
         public static void Variant(CodeWriter.CodeWriter codeWriter, int typeParameterCount)
         {
+            codeWriter._(@"[DebuggerDisplay($""{{{nameof(GetDebuggerDisplay)}(),nq}}"")]");
+
             using (codeWriter.B($"public sealed class Variant<{Csv(TypeParameters[typeParameterCount])}> : IVisitable<{Csv(TypeParameters[typeParameterCount])}>"))
             {
+                codeWriter._($"private string GetDebuggerDisplay() => $\"{{nameof(Variant<{Csv(TypeParameters[typeParameterCount])}>)}}<{{string.Join(\", \", GetType().GetGenericArguments().Select(arg => arg.Name))}}> : {{Accept(Visitor<{Csv(TypeParameters[typeParameterCount])}>.Create({string.Join(", ", Enumerable.Repeat("t => t?.GetType().Name", typeParameterCount))}))}}\";");
+
                 foreach (var typeParameter in TypeParameters[typeParameterCount])
                 {
                     using (codeWriter.B($"private sealed class {typeParameter}Visitable : IVisitable<{Csv(TypeParameters[typeParameterCount])}>"))
@@ -166,8 +170,32 @@ namespace CodeGeneration
             {
                 foreach (var typeParameter in TypeParameters[typeParameterCount])
                 {
-                    codeWriter._($"public IVisitable<{Csv(TypeParameters[typeParameterCount])}> Create({typeParameter} instance) => Visitable<{Csv(TypeParameters[typeParameterCount])}>.Create(instance);");
+                    codeWriter._($"public IVisitable<{Csv(TypeParameters[typeParameterCount])}> Create({typeParameter} instance) => new Variant<{Csv(TypeParameters[typeParameterCount])}>(instance);");
                 }
+            }
+        }
+
+        public static void VisitableActionExtension(CodeWriter.CodeWriter codeWriter, int typeParameterCount)
+        {
+            var typenames = Csv(TypeParameters[typeParameterCount]);
+            var actiontypenames = Csv(TypeParameters[typeParameterCount].Select(t => $"Action<{t}> {t.ToLower()}Action").ToArray());
+            var actionargumentnames = Csv(TypeParameters[typeParameterCount].Select(t => $"{t.ToLower()}Action").ToArray());
+            codeWriter._($"public static void Accept<{typenames}>(this IVisitable<{typenames}> visitable, {actiontypenames}) => visitable.Accept(Visitor<{typenames}>.Create({actionargumentnames}));");
+        }
+
+        public static void VisitableFunctionExtension(CodeWriter.CodeWriter codeWriter, int typeParameterCount)
+        {
+            var typenames = Csv(TypeParameters[typeParameterCount]);
+            var functypenames = Csv(TypeParameters[typeParameterCount].Select(t => $"Func<{t}, {RETURN_PARAM}> {t.ToLower()}Func").ToArray());
+            var funcargumentnames = Csv(TypeParameters[typeParameterCount].Select(t => $"{t.ToLower()}Func").ToArray());
+            codeWriter._($"public static {RETURN_PARAM} Accept<{typenames}, {RETURN_PARAM}>(this IVisitable<{typenames}> visitable, {functypenames}) => visitable.Accept(Visitor<{typenames}>.Create({funcargumentnames}));");
+        }
+
+        public static void DoubleVisitExtensions(CodeWriter.CodeWriter codeWriter, int typeParameterCount)
+        {
+            for (int i = 1; i <= MAX_PARAMS - typeParameterCount; i++)
+            {
+                codeWriter._($"public static {RETURN_PARAM} Accept<{Csv(TypeParameters[typeParameterCount + i])}, {RETURN_PARAM}>(this IVisitable<{Csv(TypeParameters[typeParameterCount])}> visitable, I{typeParameterCount}x{i}Visitor<{Csv(TypeParameters[typeParameterCount + i])}, {RETURN_PARAM}> visitor, IVisitable<{Csv(TypeParameters[typeParameterCount + i][typeParameterCount..])}> secondVisitable) => secondVisitable.Accept({string.Join(", ", Enumerable.Repeat("outer => visitable.Accept(" + string.Join(", ", Enumerable.Repeat("inner => visitor.Visit(inner, outer)", typeParameterCount)) + ")", i))});");
             }
         }
 

@@ -1,11 +1,16 @@
-﻿using Abstractions.Visitors.Interfaces;
+﻿using System.Linq;
+using System.Diagnostics;
+using Abstractions.Visitors.Interfaces;
+using Abstractions.Visitors.FactoryMethods;
 
 namespace Abstractions.SumTypes.Variants
 {
     #region T = 1
     
+    [DebuggerDisplay($"{{{nameof(GetDebuggerDisplay)}(),nq}}")]
     public sealed class Variant<T1> : IVisitable<T1>
     {
+        private string GetDebuggerDisplay() => $"{nameof(Variant<T1>)}<{string.Join(", ", GetType().GetGenericArguments().Select(arg => arg.Name))}> : {Accept(Visitor<T1>.Create(t => t?.GetType().Name))}";
         private sealed class T1Visitable : IVisitable<T1>
         {
             private readonly T1 t1;
@@ -23,8 +28,10 @@ namespace Abstractions.SumTypes.Variants
     
     #region T = 2
     
+    [DebuggerDisplay($"{{{nameof(GetDebuggerDisplay)}(),nq}}")]
     public sealed class Variant<T1, T2> : IVisitable<T1, T2>
     {
+        private string GetDebuggerDisplay() => $"{nameof(Variant<T1, T2>)}<{string.Join(", ", GetType().GetGenericArguments().Select(arg => arg.Name))}> : {Accept(Visitor<T1, T2>.Create(t => t?.GetType().Name, t => t?.GetType().Name))}";
         private sealed class T1Visitable : IVisitable<T1, T2>
         {
             private readonly T1 t1;
@@ -51,8 +58,10 @@ namespace Abstractions.SumTypes.Variants
     
     #region T = 3
     
+    [DebuggerDisplay($"{{{nameof(GetDebuggerDisplay)}(),nq}}")]
     public sealed class Variant<T1, T2, T3> : IVisitable<T1, T2, T3>
     {
+        private string GetDebuggerDisplay() => $"{nameof(Variant<T1, T2, T3>)}<{string.Join(", ", GetType().GetGenericArguments().Select(arg => arg.Name))}> : {Accept(Visitor<T1, T2, T3>.Create(t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name))}";
         private sealed class T1Visitable : IVisitable<T1, T2, T3>
         {
             private readonly T1 t1;
@@ -88,8 +97,10 @@ namespace Abstractions.SumTypes.Variants
     
     #region T = 4
     
+    [DebuggerDisplay($"{{{nameof(GetDebuggerDisplay)}(),nq}}")]
     public sealed class Variant<T1, T2, T3, T4> : IVisitable<T1, T2, T3, T4>
     {
+        private string GetDebuggerDisplay() => $"{nameof(Variant<T1, T2, T3, T4>)}<{string.Join(", ", GetType().GetGenericArguments().Select(arg => arg.Name))}> : {Accept(Visitor<T1, T2, T3, T4>.Create(t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name))}";
         private sealed class T1Visitable : IVisitable<T1, T2, T3, T4>
         {
             private readonly T1 t1;
@@ -134,8 +145,10 @@ namespace Abstractions.SumTypes.Variants
     
     #region T = 5
     
+    [DebuggerDisplay($"{{{nameof(GetDebuggerDisplay)}(),nq}}")]
     public sealed class Variant<T1, T2, T3, T4, T5> : IVisitable<T1, T2, T3, T4, T5>
     {
+        private string GetDebuggerDisplay() => $"{nameof(Variant<T1, T2, T3, T4, T5>)}<{string.Join(", ", GetType().GetGenericArguments().Select(arg => arg.Name))}> : {Accept(Visitor<T1, T2, T3, T4, T5>.Create(t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name))}";
         private sealed class T1Visitable : IVisitable<T1, T2, T3, T4, T5>
         {
             private readonly T1 t1;
@@ -189,8 +202,10 @@ namespace Abstractions.SumTypes.Variants
     
     #region T = 6
     
+    [DebuggerDisplay($"{{{nameof(GetDebuggerDisplay)}(),nq}}")]
     public sealed class Variant<T1, T2, T3, T4, T5, T6> : IVisitable<T1, T2, T3, T4, T5, T6>
     {
+        private string GetDebuggerDisplay() => $"{nameof(Variant<T1, T2, T3, T4, T5, T6>)}<{string.Join(", ", GetType().GetGenericArguments().Select(arg => arg.Name))}> : {Accept(Visitor<T1, T2, T3, T4, T5, T6>.Create(t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name))}";
         private sealed class T1Visitable : IVisitable<T1, T2, T3, T4, T5, T6>
         {
             private readonly T1 t1;
@@ -253,8 +268,10 @@ namespace Abstractions.SumTypes.Variants
     
     #region T = 7
     
+    [DebuggerDisplay($"{{{nameof(GetDebuggerDisplay)}(),nq}}")]
     public sealed class Variant<T1, T2, T3, T4, T5, T6, T7> : IVisitable<T1, T2, T3, T4, T5, T6, T7>
     {
+        private string GetDebuggerDisplay() => $"{nameof(Variant<T1, T2, T3, T4, T5, T6, T7>)}<{string.Join(", ", GetType().GetGenericArguments().Select(arg => arg.Name))}> : {Accept(Visitor<T1, T2, T3, T4, T5, T6, T7>.Create(t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name))}";
         private sealed class T1Visitable : IVisitable<T1, T2, T3, T4, T5, T6, T7>
         {
             private readonly T1 t1;
@@ -326,8 +343,10 @@ namespace Abstractions.SumTypes.Variants
     
     #region T = 8
     
+    [DebuggerDisplay($"{{{nameof(GetDebuggerDisplay)}(),nq}}")]
     public sealed class Variant<T1, T2, T3, T4, T5, T6, T7, T8> : IVisitable<T1, T2, T3, T4, T5, T6, T7, T8>
     {
+        private string GetDebuggerDisplay() => $"{nameof(Variant<T1, T2, T3, T4, T5, T6, T7, T8>)}<{string.Join(", ", GetType().GetGenericArguments().Select(arg => arg.Name))}> : {Accept(Visitor<T1, T2, T3, T4, T5, T6, T7, T8>.Create(t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name))}";
         private sealed class T1Visitable : IVisitable<T1, T2, T3, T4, T5, T6, T7, T8>
         {
             private readonly T1 t1;
@@ -408,8 +427,10 @@ namespace Abstractions.SumTypes.Variants
     
     #region T = 9
     
+    [DebuggerDisplay($"{{{nameof(GetDebuggerDisplay)}(),nq}}")]
     public sealed class Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9> : IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9>
     {
+        private string GetDebuggerDisplay() => $"{nameof(Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9>)}<{string.Join(", ", GetType().GetGenericArguments().Select(arg => arg.Name))}> : {Accept(Visitor<T1, T2, T3, T4, T5, T6, T7, T8, T9>.Create(t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name))}";
         private sealed class T1Visitable : IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9>
         {
             private readonly T1 t1;
@@ -499,8 +520,10 @@ namespace Abstractions.SumTypes.Variants
     
     #region T = 10
     
+    [DebuggerDisplay($"{{{nameof(GetDebuggerDisplay)}(),nq}}")]
     public sealed class Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> : IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>
     {
+        private string GetDebuggerDisplay() => $"{nameof(Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>)}<{string.Join(", ", GetType().GetGenericArguments().Select(arg => arg.Name))}> : {Accept(Visitor<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>.Create(t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name))}";
         private sealed class T1Visitable : IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>
         {
             private readonly T1 t1;
@@ -599,8 +622,10 @@ namespace Abstractions.SumTypes.Variants
     
     #region T = 11
     
+    [DebuggerDisplay($"{{{nameof(GetDebuggerDisplay)}(),nq}}")]
     public sealed class Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11> : IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>
     {
+        private string GetDebuggerDisplay() => $"{nameof(Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>)}<{string.Join(", ", GetType().GetGenericArguments().Select(arg => arg.Name))}> : {Accept(Visitor<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>.Create(t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name))}";
         private sealed class T1Visitable : IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>
         {
             private readonly T1 t1;
@@ -708,8 +733,10 @@ namespace Abstractions.SumTypes.Variants
     
     #region T = 12
     
+    [DebuggerDisplay($"{{{nameof(GetDebuggerDisplay)}(),nq}}")]
     public sealed class Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> : IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>
     {
+        private string GetDebuggerDisplay() => $"{nameof(Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>)}<{string.Join(", ", GetType().GetGenericArguments().Select(arg => arg.Name))}> : {Accept(Visitor<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>.Create(t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name))}";
         private sealed class T1Visitable : IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>
         {
             private readonly T1 t1;
@@ -826,8 +853,10 @@ namespace Abstractions.SumTypes.Variants
     
     #region T = 13
     
+    [DebuggerDisplay($"{{{nameof(GetDebuggerDisplay)}(),nq}}")]
     public sealed class Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> : IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>
     {
+        private string GetDebuggerDisplay() => $"{nameof(Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>)}<{string.Join(", ", GetType().GetGenericArguments().Select(arg => arg.Name))}> : {Accept(Visitor<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>.Create(t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name))}";
         private sealed class T1Visitable : IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>
         {
             private readonly T1 t1;
@@ -953,8 +982,10 @@ namespace Abstractions.SumTypes.Variants
     
     #region T = 14
     
+    [DebuggerDisplay($"{{{nameof(GetDebuggerDisplay)}(),nq}}")]
     public sealed class Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> : IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>
     {
+        private string GetDebuggerDisplay() => $"{nameof(Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>)}<{string.Join(", ", GetType().GetGenericArguments().Select(arg => arg.Name))}> : {Accept(Visitor<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>.Create(t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name))}";
         private sealed class T1Visitable : IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>
         {
             private readonly T1 t1;
@@ -1089,8 +1120,10 @@ namespace Abstractions.SumTypes.Variants
     
     #region T = 15
     
+    [DebuggerDisplay($"{{{nameof(GetDebuggerDisplay)}(),nq}}")]
     public sealed class Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> : IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>
     {
+        private string GetDebuggerDisplay() => $"{nameof(Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>)}<{string.Join(", ", GetType().GetGenericArguments().Select(arg => arg.Name))}> : {Accept(Visitor<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>.Create(t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name))}";
         private sealed class T1Visitable : IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>
         {
             private readonly T1 t1;
@@ -1234,8 +1267,10 @@ namespace Abstractions.SumTypes.Variants
     
     #region T = 16
     
+    [DebuggerDisplay($"{{{nameof(GetDebuggerDisplay)}(),nq}}")]
     public sealed class Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> : IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>
     {
+        private string GetDebuggerDisplay() => $"{nameof(Variant<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>)}<{string.Join(", ", GetType().GetGenericArguments().Select(arg => arg.Name))}> : {Accept(Visitor<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>.Create(t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name, t => t?.GetType().Name))}";
         private sealed class T1Visitable : IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>
         {
             private readonly T1 t1;

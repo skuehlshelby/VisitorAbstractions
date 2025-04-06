@@ -16,6 +16,11 @@ namespace Abstractions.Visitors.Interfaces
         TReturn Accept<TReturn>(IVisitor<T1, TReturn> visitor);
     }
 
+    public interface IVisitableFactory<T1>
+    {
+        IVisitable<T1> Create(T1 instance);
+    }
+
     public interface IVisitor<in T1, TReturn>
     {
         TReturn Visit(T1 instance);
@@ -28,6 +33,12 @@ namespace Abstractions.Visitors.Interfaces
     public interface IVisitable<out T1, out T2>
     {
         TReturn Accept<TReturn>(IVisitor<T1, T2, TReturn> visitor);
+    }
+
+    public interface IVisitableFactory<T1, T2>
+    {
+        IVisitable<T1, T2> Create(T1 instance);
+        IVisitable<T1, T2> Create(T2 instance);
     }
 
     public interface IVisitor<in T1, in T2, TReturn>
@@ -48,6 +59,13 @@ namespace Abstractions.Visitors.Interfaces
     public interface IVisitable<out T1, out T2, out T3>
     {
         TReturn Accept<TReturn>(IVisitor<T1, T2, T3, TReturn> visitor);
+    }
+
+    public interface IVisitableFactory<T1, T2, T3>
+    {
+        IVisitable<T1, T2, T3> Create(T1 instance);
+        IVisitable<T1, T2, T3> Create(T2 instance);
+        IVisitable<T1, T2, T3> Create(T3 instance);
     }
 
     public interface IVisitor<in T1, in T2, in T3, TReturn>
@@ -76,6 +94,14 @@ namespace Abstractions.Visitors.Interfaces
     public interface IVisitable<out T1, out T2, out T3, out T4>
     {
         TReturn Accept<TReturn>(IVisitor<T1, T2, T3, T4, TReturn> visitor);
+    }
+
+    public interface IVisitableFactory<T1, T2, T3, T4>
+    {
+        IVisitable<T1, T2, T3, T4> Create(T1 instance);
+        IVisitable<T1, T2, T3, T4> Create(T2 instance);
+        IVisitable<T1, T2, T3, T4> Create(T3 instance);
+        IVisitable<T1, T2, T3, T4> Create(T4 instance);
     }
 
     public interface IVisitor<in T1, in T2, in T3, in T4, TReturn>
@@ -115,6 +141,15 @@ namespace Abstractions.Visitors.Interfaces
     public interface IVisitable<out T1, out T2, out T3, out T4, out T5>
     {
         TReturn Accept<TReturn>(IVisitor<T1, T2, T3, T4, T5, TReturn> visitor);
+    }
+
+    public interface IVisitableFactory<T1, T2, T3, T4, T5>
+    {
+        IVisitable<T1, T2, T3, T4, T5> Create(T1 instance);
+        IVisitable<T1, T2, T3, T4, T5> Create(T2 instance);
+        IVisitable<T1, T2, T3, T4, T5> Create(T3 instance);
+        IVisitable<T1, T2, T3, T4, T5> Create(T4 instance);
+        IVisitable<T1, T2, T3, T4, T5> Create(T5 instance);
     }
 
     public interface IVisitor<in T1, in T2, in T3, in T4, in T5, TReturn>
@@ -169,6 +204,16 @@ namespace Abstractions.Visitors.Interfaces
     public interface IVisitable<out T1, out T2, out T3, out T4, out T5, out T6>
     {
         TReturn Accept<TReturn>(IVisitor<T1, T2, T3, T4, T5, T6, TReturn> visitor);
+    }
+
+    public interface IVisitableFactory<T1, T2, T3, T4, T5, T6>
+    {
+        IVisitable<T1, T2, T3, T4, T5, T6> Create(T1 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6> Create(T2 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6> Create(T3 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6> Create(T4 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6> Create(T5 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6> Create(T6 instance);
     }
 
     public interface IVisitor<in T1, in T2, in T3, in T4, in T5, in T6, TReturn>
@@ -243,6 +288,17 @@ namespace Abstractions.Visitors.Interfaces
     public interface IVisitable<out T1, out T2, out T3, out T4, out T5, out T6, out T7>
     {
         TReturn Accept<TReturn>(IVisitor<T1, T2, T3, T4, T5, T6, T7, TReturn> visitor);
+    }
+
+    public interface IVisitableFactory<T1, T2, T3, T4, T5, T6, T7>
+    {
+        IVisitable<T1, T2, T3, T4, T5, T6, T7> Create(T1 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7> Create(T2 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7> Create(T3 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7> Create(T4 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7> Create(T5 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7> Create(T6 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7> Create(T7 instance);
     }
 
     public interface IVisitor<in T1, in T2, in T3, in T4, in T5, in T6, in T7, TReturn>
@@ -343,6 +399,18 @@ namespace Abstractions.Visitors.Interfaces
     public interface IVisitable<out T1, out T2, out T3, out T4, out T5, out T6, out T7, out T8>
     {
         TReturn Accept<TReturn>(IVisitor<T1, T2, T3, T4, T5, T6, T7, T8, TReturn> visitor);
+    }
+
+    public interface IVisitableFactory<T1, T2, T3, T4, T5, T6, T7, T8>
+    {
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8> Create(T1 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8> Create(T2 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8> Create(T3 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8> Create(T4 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8> Create(T5 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8> Create(T6 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8> Create(T7 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8> Create(T8 instance);
     }
 
     public interface IVisitor<in T1, in T2, in T3, in T4, in T5, in T6, in T7, in T8, TReturn>
@@ -476,6 +544,19 @@ namespace Abstractions.Visitors.Interfaces
     public interface IVisitable<out T1, out T2, out T3, out T4, out T5, out T6, out T7, out T8, out T9>
     {
         TReturn Accept<TReturn>(IVisitor<T1, T2, T3, T4, T5, T6, T7, T8, T9, TReturn> visitor);
+    }
+
+    public interface IVisitableFactory<T1, T2, T3, T4, T5, T6, T7, T8, T9>
+    {
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9> Create(T1 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9> Create(T2 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9> Create(T3 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9> Create(T4 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9> Create(T5 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9> Create(T6 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9> Create(T7 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9> Create(T8 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9> Create(T9 instance);
     }
 
     public interface IVisitor<in T1, in T2, in T3, in T4, in T5, in T6, in T7, in T8, in T9, TReturn>
@@ -650,6 +731,20 @@ namespace Abstractions.Visitors.Interfaces
     public interface IVisitable<out T1, out T2, out T3, out T4, out T5, out T6, out T7, out T8, out T9, out T10>
     {
         TReturn Accept<TReturn>(IVisitor<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TReturn> visitor);
+    }
+
+    public interface IVisitableFactory<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>
+    {
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> Create(T1 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> Create(T2 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> Create(T3 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> Create(T4 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> Create(T5 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> Create(T6 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> Create(T7 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> Create(T8 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> Create(T9 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> Create(T10 instance);
     }
 
     public interface IVisitor<in T1, in T2, in T3, in T4, in T5, in T6, in T7, in T8, in T9, in T10, TReturn>
@@ -874,6 +969,21 @@ namespace Abstractions.Visitors.Interfaces
     public interface IVisitable<out T1, out T2, out T3, out T4, out T5, out T6, out T7, out T8, out T9, out T10, out T11>
     {
         TReturn Accept<TReturn>(IVisitor<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TReturn> visitor);
+    }
+
+    public interface IVisitableFactory<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>
+    {
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11> Create(T1 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11> Create(T2 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11> Create(T3 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11> Create(T4 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11> Create(T5 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11> Create(T6 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11> Create(T7 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11> Create(T8 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11> Create(T9 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11> Create(T10 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11> Create(T11 instance);
     }
 
     public interface IVisitor<in T1, in T2, in T3, in T4, in T5, in T6, in T7, in T8, in T9, in T10, in T11, TReturn>
@@ -1158,6 +1268,22 @@ namespace Abstractions.Visitors.Interfaces
     public interface IVisitable<out T1, out T2, out T3, out T4, out T5, out T6, out T7, out T8, out T9, out T10, out T11, out T12>
     {
         TReturn Accept<TReturn>(IVisitor<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, TReturn> visitor);
+    }
+
+    public interface IVisitableFactory<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>
+    {
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> Create(T1 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> Create(T2 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> Create(T3 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> Create(T4 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> Create(T5 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> Create(T6 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> Create(T7 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> Create(T8 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> Create(T9 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> Create(T10 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> Create(T11 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> Create(T12 instance);
     }
 
     public interface IVisitor<in T1, in T2, in T3, in T4, in T5, in T6, in T7, in T8, in T9, in T10, in T11, in T12, TReturn>
@@ -1513,6 +1639,23 @@ namespace Abstractions.Visitors.Interfaces
     public interface IVisitable<out T1, out T2, out T3, out T4, out T5, out T6, out T7, out T8, out T9, out T10, out T11, out T12, out T13>
     {
         TReturn Accept<TReturn>(IVisitor<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TReturn> visitor);
+    }
+
+    public interface IVisitableFactory<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>
+    {
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> Create(T1 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> Create(T2 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> Create(T3 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> Create(T4 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> Create(T5 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> Create(T6 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> Create(T7 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> Create(T8 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> Create(T9 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> Create(T10 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> Create(T11 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> Create(T12 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> Create(T13 instance);
     }
 
     public interface IVisitor<in T1, in T2, in T3, in T4, in T5, in T6, in T7, in T8, in T9, in T10, in T11, in T12, in T13, TReturn>
@@ -1951,6 +2094,24 @@ namespace Abstractions.Visitors.Interfaces
     public interface IVisitable<out T1, out T2, out T3, out T4, out T5, out T6, out T7, out T8, out T9, out T10, out T11, out T12, out T13, out T14>
     {
         TReturn Accept<TReturn>(IVisitor<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, TReturn> visitor);
+    }
+
+    public interface IVisitableFactory<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>
+    {
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> Create(T1 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> Create(T2 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> Create(T3 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> Create(T4 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> Create(T5 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> Create(T6 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> Create(T7 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> Create(T8 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> Create(T9 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> Create(T10 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> Create(T11 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> Create(T12 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> Create(T13 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> Create(T14 instance);
     }
 
     public interface IVisitor<in T1, in T2, in T3, in T4, in T5, in T6, in T7, in T8, in T9, in T10, in T11, in T12, in T13, in T14, TReturn>
@@ -2485,6 +2646,25 @@ namespace Abstractions.Visitors.Interfaces
     public interface IVisitable<out T1, out T2, out T3, out T4, out T5, out T6, out T7, out T8, out T9, out T10, out T11, out T12, out T13, out T14, out T15>
     {
         TReturn Accept<TReturn>(IVisitor<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, TReturn> visitor);
+    }
+
+    public interface IVisitableFactory<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>
+    {
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> Create(T1 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> Create(T2 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> Create(T3 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> Create(T4 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> Create(T5 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> Create(T6 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> Create(T7 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> Create(T8 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> Create(T9 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> Create(T10 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> Create(T11 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> Create(T12 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> Create(T13 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> Create(T14 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> Create(T15 instance);
     }
 
     public interface IVisitor<in T1, in T2, in T3, in T4, in T5, in T6, in T7, in T8, in T9, in T10, in T11, in T12, in T13, in T14, in T15, TReturn>
@@ -3129,6 +3309,26 @@ namespace Abstractions.Visitors.Interfaces
     public interface IVisitable<out T1, out T2, out T3, out T4, out T5, out T6, out T7, out T8, out T9, out T10, out T11, out T12, out T13, out T14, out T15, out T16>
     {
         TReturn Accept<TReturn>(IVisitor<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, TReturn> visitor);
+    }
+
+    public interface IVisitableFactory<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>
+    {
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> Create(T1 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> Create(T2 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> Create(T3 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> Create(T4 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> Create(T5 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> Create(T6 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> Create(T7 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> Create(T8 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> Create(T9 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> Create(T10 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> Create(T11 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> Create(T12 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> Create(T13 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> Create(T14 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> Create(T15 instance);
+        IVisitable<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> Create(T16 instance);
     }
 
     public interface IVisitor<in T1, in T2, in T3, in T4, in T5, in T6, in T7, in T8, in T9, in T10, in T11, in T12, in T13, in T14, in T15, in T16, TReturn>
